@@ -1,4 +1,4 @@
-// jsreview.js => 그 자체가 <script>태그 //////
+// jsreview.js => 그 자체가 <script>태그
 // HTML, CSS 사용 불가
 
 document.addEventListener('DOMContentLoaded', function(event) {
@@ -130,3 +130,5 @@ function getNextNo(){
     
     return ('00' + (Number(noList[noList.length - 1].textContent) + 1)).slice(-3);
 };
+
+// abracadabra
