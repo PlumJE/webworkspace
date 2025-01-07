@@ -1,4 +1,4 @@
-// jsreview.js => 그 자체가 <script>태그
+// jsreview.js => 그 자체가 <script>태그 //////
 // HTML, CSS 사용 불가
 
 document.addEventListener('DOMContentLoaded', function(event) {
