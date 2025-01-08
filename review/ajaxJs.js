@@ -17,8 +17,8 @@ function init() {
     document.getElementById('insertBtn').addEventListener('click', addUserInfo);
 
     document.getElementById('updateBtn').addEventListener('click', updateUserInfo);
-    // 데이터를 가져오는 작업
 
+    // 데이터를 가져오는 작업
     getUserList();
 }
 
