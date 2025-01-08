@@ -63,7 +63,7 @@ function addUserInfo(event) {
 
 // 유저 번호를 찾아 해당 유저 수정
 function updateUserInfo(event) {
-    userNo = document.querySelector('[name=no]').value;
+    let userNo = document.querySelector('[name=no]').value;
     if(isNaN(userNo))
         return;
 
@@ -82,7 +82,8 @@ function updateUserInfo(event) {
 
 // 유저 아이디를 찾아 해당 유저 삭제
 function deleteUserInfo(event) {
-    userId = document.querySelector('[name=id]').value;
+    let userId = document.querySelector('[name=id]').value;
+    // let userId = formUserInfo().id;
 
     fetch('http://192.168.0.11:8099/userDelete?id=' + userId)
     .then(response => response.json())
