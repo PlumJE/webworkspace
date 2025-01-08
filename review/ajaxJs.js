@@ -18,6 +18,7 @@ function init() {
 
     document.getElementById('updateBtn').addEventListener('click', updateUserInfo);
 
+    document.getElementById('delBtn').addEventListener('click', deleteUserInfo);
     // 데이터를 가져오는 작업
     getUserList();
 }
@@ -79,6 +80,19 @@ function updateUserInfo(event) {
     .catch(error => console.log(error));
 }
 
+// 유저 아이디를 찾아 해당 유저 삭제
+function deleteUserInfo(event) {
+    userId = document.querySelector('[name=id]').value;
+
+    fetch('http://192.168.0.11:8099/userDelete?id=' + userId)
+    .then(response => response.json())
+    .then(result => {
+        document.querySelector('#list tbody').replaceChildren();
+        getUserList();
+    })
+    .catch(error => console.log(error));
+}
+
 // 유저 정보 tr태그 추가
 function addTbody(info) {
     let trTag = document.createElement('tr');
@@ -89,7 +103,12 @@ function addTbody(info) {
 
     for(let field of ['no', 'id', 'name', 'joinDate']) {
         let tdTag = document.createElement('td');
-        tdTag.textContent = (field == 'joinDate') ? info[field].slice(0, 10) : info[field];
+        if(info[field] == null) {
+            tdTag.textContent = 'null';
+        }
+        else {
+            tdTag.textContent = (field == 'joinDate') ? info[field].slice(0, 10) : info[field];
+        }
         trTag.append(tdTag);
     }
 
@@ -100,7 +119,7 @@ function addTbody(info) {
 // 유저 상세정보를 위에 폼에 표시
 function displayUserInfo(info) {
     for(let key in info) {
-        document.querySelector("[name='" + key + "']").value = (key == 'joinDate') ? info[key].slice(0, 10) : info[key];
+        document.querySelector("[name='" + key + "']").value = (key == null) ? 'null' : ((key == 'joinDate') ? info[key].slice(0, 10) : info[key]);
     }
 }
 
