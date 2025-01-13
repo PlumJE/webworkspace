@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<!-- <html lang="en" onclick="alert('html');"> -->
-<html lang="en"></html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,12 +9,11 @@
             border: 1px solid black;
         }
     </style>
-
 </head>
 <body>
-    <!-- <template>
-        <span>Hi</span> // 화면에 안보임
-    </template> -->
+    <template>
+        <span>Hi</span> <!-- 화면에 안보임 -->
+    </template>
     <div class="container">
         <div>
             <button type="button" id="insertBtn">+</button>
@@ -59,63 +57,61 @@
     </div>
     <script>
         /*
-         Javascript DOM 탐색
-         -- 메소드
-         document.getElementById()
-         document.getElementsByTagName()
-         document.getElementsByName()
-         document.getElementsByClassName()
-         // 4가지 속성이 기본
+            Javascript DOM 탐색
+            -- 메소드
+            document.getElementById()
+            document.getElementsByTagName()
+            document.getElementsByName()
+            document.getElementsByClassName()
+            // 4가지 속성이 기본
 
-         // 선택자<CSS Selector>를 기반으로 검색 활용도 높음
-         document.querySleector() 첫번째 검색대상만 리턴
-         document.querySleectorAll() 
+            // 선택자<CSS Selector>를 기반으로 검색 활용도 높음
+            document.querySleector() 첫번째 검색대상만 리턴
+            document.querySleectorAll() 
 
-         -- 관계 관련 속성.
-         부모 : parentElement
-         자식 : children, firstElementChild, lastElementChild
-         형제 : previousElementSibling, nextElementSibling
+            -- 관계 관련 속성.
+            부모 : parentElement
+            자식 : children, firstElementChild, lastElementChild
+            형제 : previousElementSibling, nextElementSibling
         */
 
         // class 속성 : className, classList
-        let tableTag = document.getElementsByTagName('table')[0];
-        console.log(typeof tableTag.className, tableTag.className);
-        console.log(typeof tableTag.classList, tableTag.classList);
-        tableTag.classList.remove('user');
+        let tableTag = document.getElementsByTagName('table')[0];   // tableTag는 <table>태그를 뜻한다다
+        console.log(typeof tableTag.className, tableTag.className); // <table>의 className과 그의 자료형(str)을 출력
+        console.log(typeof tableTag.classList, tableTag.classList); // <table>의 classList와 그의 자료형(list)을 출력
+        tableTag.classList.remove('user');  // <table>의 클래스 중에서 user를 제거
         // tableTag.className = ''; Name 전부 날림
 
         // 1) table에 border 속성 변경
-        let tags = document.querySelectorAll('table, th, td');
-        for(let tag of tags){
-            // tag.style.border = '1px dotted blue'; // 통체로바꾸기
-            // tag.style.borderColor = 'blue'; // 컬러 바꾸기 하이폰대신 앞글자 대문자로해서 찾아감
-            // tag.style['border-color'] = 'blue'; // 컬러 바꾸기 하이폰 쓰면 이런식으로 해야함
+        let tags = document.querySelectorAll('table, th, td');  // tags는 <table>과 <th>와 <td>를 가리킴
+        for(let tag of tags) {
+            tag.style.border = '1px dotted blue'; // 통체로바꾸기
+            tag.style.borderColor = 'blue'; // 컬러 바꾸기 하이폰대신 앞글자 대문자로해서 찾아감
+            tag.style['border-color'] = 'blue'; // 컬러 바꾸기 하이폰 쓰면 이런식으로 해야함
             tag.style.border = '1px dotted blue'; //
             tag.style.borderColor = 'green';
             // border-style, border-width, ... 크기 > 스타일 > 컬러
             // border-color : borderColor
-
         }
 
         // 2) 지정된 데이터를 console에 출력
-        let tdList = document.querySelector('tbody > tr').children;
-        for(let i=0; i < tdList.length; i++){
-        //   console.log(tdList[i].textContent);
+        let tdList = document.querySelector('tbody > tr').children; // tdList는 <tbody>밑의 <tr>밑의 자식들(<tr>)을 가리킴
+        for(let i=0; i < tdList.length; i++) {  // 각 <tr>들 마다
+            console.log(tdList[i].textContent); 
+            let tag = tdList[i];    // tag는 각 <tr>한개씩을 가리킴
 
-          let tag = tdList[i];
-
-          let content = null;
-          if(tag.children.length == 0){
-            content = tag.textContent;
-          }else if(tag.firstElementChild.tagName == 'SELECT'){ // 셀렉트 인풋 등 대문자사용
-            // td 태그의 자식요소가 SELECT인 경우
-            content = tag.firstElementChild.value;
-        
-          }else{
-            continue;
+            let content = null;
+            if(tag.children.length == 0){   // <tr>밑에 자식이 없다면
+                content = tag.textContent;  // content에 tag의 텍스트를 저장
+            }
+            else if(tag.firstElementChild.tagName == 'SELECT') { // 셀렉트 인풋 등 대문자사용. td태그의 자식요소가 SELECT인 경우
+                content = tag.firstElementChild.value;
+            }
+            else {
+                continue;
+            }
+            console.log(content);
         }
-        console.log(content);
-    }
     </script>
     <script src="jsreview.js"></script>
 </body>

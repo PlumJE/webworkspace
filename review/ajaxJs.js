@@ -3,29 +3,25 @@ init();
 // 최초 셋팅
 function init(){
     // 각 태그의 이벤트 처리
-    document.getElementById('initBtn')
-            .addEventListener('click', function(event){
-                // 입력태그 초기화 
-                // 1) 입력태그를 검색: input, select
-                let tage = document.querySelectorAll('input, select');
-                tage.forEach(function(tag, index, array){ // 매개변수는 이름이 중요한게 아니라 위치가 중요
-                //   console.log(tag, index, array);
-                // 2) 입력태그의 value 속성을 지우는게 초기화
-                tag.value = '';
-                });
-            });
+    document.getElementById('initBtn').addEventListener('click', function(event){
+        // 입력태그 초기화 
+        // 1) 입력태그를 검색: input, select
+        let tage = document.querySelectorAll('input, select');
+        tage.forEach(function(tag, index, array){ // 매개변수는 이름이 중요한게 아니라 위치가 중요
+        //   console.log(tag, index, array);
+        // 2) 입력태그의 value 속성을 지우는게 초기화
+        tag.value = '';
+        });
+    });
 
-            document.getElementById('insertBtn') // 등록작업
-                    .addEventListener('click', addUserInfo);
+    document.getElementById('insertBtn').addEventListener('click', addUserInfo); // 등록작업        
 
-            document.getElementById('updateBtn') // 수정작업
-                    .addEventListener('click', updateUserInfo);
+    document.getElementById('updateBtn').addEventListener('click', updateUserInfo); // 수정작업
 
-            document.getElementById('delBtn') // 삭제작업
-                    .addEventListener('click', delteUserInfo);
-            
-            // 데이터를 가져오는 작업 페치기반
-            getUserList();
+    document.getElementById('delBtn').addEventListener('click', delteUserInfo); // 삭제작업
+    
+    // 데이터를 가져오는 작업 페치기반
+    getUserList();
 }
 
 function getUserList(){
@@ -48,9 +44,9 @@ function addTbody(list){
         // <td/> 들을 감쌀 <tr/>이 필요
         let trTag = document.createElement('tr');
         trTag.addEventListener('click', function(event){
-          let selectTr = event.currentTarget;
-          let selectId = selectTr.children[1].textContent;
-          findUserById(selectId);
+            let selectTr = event.currentTarget;
+            let selectId = selectTr.children[1].textContent;
+            findUserById(selectId);
         });
 
         // 번호
@@ -146,10 +142,10 @@ function addUserInfo(event){ // 새로운 회원을 등록
     .then(response => response.json()) // AJAX 가 then 으로 서버에 보내고 데이터를 받아서 끝남
     .then(result => {
         console.log(result);
-    // 3) 화면에 출력
-    getUserList();
-    // result에서 no 값을 확인해서 input에 출력
-    document.getElementsByName('no')[0].value = result.no;
+        // 3) 화면에 출력
+        getUserList();
+        // result에서 no 값을 확인해서 input에 출력
+        document.getElementsByName('no')[0].value = result.no;
     })
     .catch(err => console.log(err));   
 }
@@ -183,12 +179,12 @@ function updateUserInfo(event){ // 회원정보를 수정
         },
         body : JSON.stringify(userInfo) // 제이슨은 생성 매서드가 없음
     })
-        .then(response => response.json())
-        .then(result => {
-          // 3) 화면 출력
-          getUserList(); // 비동기적으로 보여줌
-        })
-        .catch(err => console.log(err));
+    .then(response => response.json())
+    .then(result => {
+        // 3) 화면 출력
+        getUserList(); // 비동기적으로 보여줌
+    })
+    .catch(err => console.log(err));
 
 }
 

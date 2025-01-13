@@ -1,27 +1,23 @@
 init();
 
-function init(){
+function init() {
     // 초기 셋팅
-    document.getElementById('init')
-            .addEventListener('click',function(event){
-                // 입력태그 초기화 버튼
-                let tage = document.querySelectorAll('input, select');
-                tage.forEach(function(tag, index, array){
-                // 입력태그 valut 밸류속성 초기화
-                    tag.value = '';
-                });
-            });
+    document.getElementById('init').addEventListener('click',function(event) {
+        // 입력태그 초기화 버튼
+        let tage = document.querySelectorAll('input, select');
+        tage.forEach(function(tag, index, array) {
+        // 입력태그 valut 밸류속성 초기화
+            tag.value = '';
+        });
+    });
 
-            document.getElementById('insert')
-                    .addEventListener('cclick', addUserInfo);
+    document.getElementById('insert').addEventListener('click', addUserInfo);
+    
+    document.getElementById('update').addEventListener('click', updateUserInfo);
             
-            document.getElementById('update')
-                    .addEventListener('cclick', updateUserInfo);
-                    
-            document.getElementById('del')
-                    .addEventListener('cclick', delteUserInfo);
+    document.getElementById('del').addEventListener('click', delteUserInfo);
 
-            getUserList();
+    getUserList();
 }
 
 // 회원 데이터 전체조회
@@ -91,37 +87,36 @@ function addTbody(list){
 // }
 
 // 사원번호를 기준으로 서버에 단건조회 요청 : AJAX
-function findUserById(empId){
-
+function findUserById(empId) {
     fetch(`http://192.168.0.11:8099/empInfo?employeeId=${empId}`)
     .then(response => response.json())
     .then(result =>{
-      // 사원정보를 <input> 태그에 출력
-      displayEmpInfo(result);
+        // 사원정보를 <input> 태그에 출력
+        displayEmpInfo(result);
     })
     .catch(err => console.log(err));
-  }
-  
-  function getUserInfo(emp){
+}
+
+function getUserInfo(emp) {
     // 사원이 가진 정보를 각 <input> 태그에 출력하기
     document.getElementsByName('employeeId')[0].value = emp.employeeId; // 사원 정보 중 사원번호
     document.getElementsByName('lastName')[0].value = emp.lastName; // 사원 정보 중 이름
     document.getElementsByName('email')[0].value = emp.email; // 사원 정보 중 이메일
     document.getElementsByName('hireDate')[0].value = emp.hireDate; // 사원 정보 중 입사일자
     document.getElementsByName('jobId')[0].value = emp.jobId; // 사원 정보 중 업무
-  
+
     // 반복문 이런방식도 있음
     let tagList = document.querySelectorAll('#empInfo input');
     tagList.forEach(tag =>{ // 인풋태그
       tag.value = emp[tag.name]; // 값을 결정하는건 인풋네임 속성    
     });
-  }
+}
 
 // 새로운 회원등록
 function addUserInfo(event){
     let userInfo = formUserInfo();
 
-    fetch('http://192.168.0.11:8099/empInsert',{
+    fetch('http://192.168.0.11:8099/empInsert', {
         method : 'post',
         body : new URLSearchParams(userInfo)
     })
@@ -147,7 +142,7 @@ function formUserInfo(){
 function updateUserInfo(event){
     let userInfo = formUserInfo();
 
-    fetch('http://192.168.0.11:8099/empUpdate',{
+    fetch('http://192.168.0.11:8099/empUpdate', {
         method : 'post',
         headers : {
             'content-type' : 'addlication/json'
