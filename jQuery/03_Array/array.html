@@ -31,6 +31,90 @@
             value.textContent += '100';
             // $(value).text('1234');
         })
+
+        const obj = [
+            {'area': '서울'},
+            {'area': '부산'},
+            {'area': '전주'}
+        ];
+
+        $(obj).each(function(idx, val) {
+            console.log(1, idx, val);
+        });
+
+        $.each(obj, function(idx, val) {
+            console.log(2, idx, val);
+        });
+
+        $(obj).each(function(idx, city) {
+            // city => {'area':'서울'}
+            let liTag = $('<li></li>');
+            liTag.text(city.area);
+            $('#menu1').append(liTag);
+        })
+
+        console.clear();
+    </script>
+    <script>
+        let arr1 = [
+            {'area':'서울', 'dept':'영업', 'name':'무대리'},
+            {'area':'부산', 'dept':'영업', 'name':'홍과장'},
+            {'area':'대전', 'dept':'생산', 'name':'박사장'},
+            {'area':'서울', 'dept':'생산', 'name':'김부장'}
+        ];
+
+        // $.map() : 원본 상관없이 return값만 가지고 새로운 배열
+        let mapAry = $.map(arr1, function(value, idx) {
+            if(value.area == '서울') {
+                return value.name;
+            }
+        });
+        console.log(arr1, mapAry);
+
+        // $.grep() : 원본을 유지하며 return 값이 true인 경우만 새로운 배열로
+        let grepAry = $.grep(arr1, function(value, idx) {
+            if(value.dept == '영업') {
+                return true;
+            }
+            else {
+                return false;
+            }
+        })
+        console.log(arr1, grepAry);
+    </script>
+    <div id="list">
+        <ul>
+            <!-- 근무지역이 서울인 사원이름 -->
+        </ul>
+        <ul>
+            <!-- 근무하는 부서가 생산인 사원이름 -->
+        </ul>
+    </div>
+    <script>
+        let data = [
+            {'area':'서울', 'dept':'영업', 'name':'무대리'},
+            {'area':'부산', 'dept':'영업', 'name':'홍과장'},
+            {'area':'대전', 'dept':'생산', 'name':'박사장'},
+            {'area':'서울', 'dept':'생산', 'name':'김부장'}
+        ];
+
+        $(data).each(function(index, value) {
+            if(value.area == '서울') {
+                liTag = $('<li></li>');
+                liTag.text(value.name);
+                $('#list ul:first').append(liTag);
+            }
+        });
+
+        let empList = $.map(data, function(emp, idx) {
+            if(emp.dept == '생산') {
+                return emp.name;
+            }
+        });
+
+        $.each(empList, function(idx, emp) {
+            $('#list ul:last').append(`<li>${emp}</li>`);
+        });
     </script>
 </body>
 </html>
