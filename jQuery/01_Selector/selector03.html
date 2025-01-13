@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>선택자 03</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <style>
+
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h1>탐색 선택자1</h1>
+        <ul id="menu">
+            <li>내용1</li>
+            <li id="scound">내용2</li>
+            <li>내용3</li>
+            <li>내용4</li>
+            <li>내용5</li>
+        </ul>
+    </div>
+    <script>
+        // 탐색 선택자 even, odd, lt, gt 선택자만 존재
+
+        // first(퍼스트) , last(라스트) 기준으로 변경
+        $('#menu li:first').text('first 변경');
+        $('#menu li').first().css('color', 'red');
+        $('#menu li:last').text('last 변경');
+
+        // even (이든) : 홀수번째 요소 -> 인덱스는 짝수
+        // odd  (오드) : 짝수번째 요소 -> 인덱스는 홀수
+        $('#menu li:odd').text('짝수 요소');
+
+        // eq   : equals,     지정한 인덱스 요소 - 인덱스 기준으로 사용
+        $('#menu li:eq(3)').text('내용을 수정합니다') 
+        $('#menu li').eq(3).css('color', 'orange');
+
+        // lt   : less then,  지정한 인덱스보다 작은 요소
+        $('#menu li:lt(2)').text('lt로 검색'); // 2기준 작은 1,0
+        // gt   : great then, 지정한 인덱스보다 큰 요소
+        $('#menu li:gt(3)').text('gt로 검색'); // 3기준 큰 4
+    </script>
+    <hr>
+    <div>
+        <h1>탐색 선택자2</h1>
+        <ol>
+            <p>p 태그</p>
+            <li>내용 1-1</li>
+            <li>내용 1-2</li>
+            <li>내용 1-3</li>
+            <li>내용 1-4</li>
+            <li>내용 1-5</li>
+            <li>내용 1-6</li>
+        </ol>
+        <ol>
+            <li>내용 2-1</li>
+            <li>내용 2-2</li>
+            <li>내용 2-3</li>
+        </ol>
+        <ol>
+            <li>추가된 내용</li>
+        </ol>
+    </div>
+    <script>
+        // 자식요소 탐색자 
+
+        // first-of-type, last-of-type
+        // first-child, last-child
+        $('ol li:first-of-type').text('text:첫번쨰'); // 앞에 선언된 li태그 부터
+        $('ol li:first-child').text('child:첫번쨰'); // 첫번쨰 li 기준으로
+
+        // nth-of-type : 해당하는 자식 태그 중에서 순서 (앤스오브타입)
+        // nth-child   : 모든 자식 태그 중에서 순서 - 1,2,3 순서를 기준 인덱스 기준아님
+        $('ol li:nth-child(1)').text('nth-child 첫번쨰');
+        $('li:nth-of-type(3n)').css('border','2px solid green'); // 3n 3의 배수
+
+        // only-child : 자식을 하나만 가지고있는 대상 의미 (온리차일드)
+        $('ol li:only-child').text('자식요소');
+
+    </script>
+</body>
+</html>

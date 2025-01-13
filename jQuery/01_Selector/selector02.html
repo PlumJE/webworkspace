@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>선택자 02</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <style>
+
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div id="inner_wrap">
+            <h1>제목1</h1>
+            <h2>제목2</h2>
+            <h3>제목3</h3>
+            <p>내용</p>
+            <div>
+                <h1>하위 요소1</h1>
+                <h2>하위 요소2</h2>
+            </div>
+        </div>
+    </div>
+    <script>
+        // 부모 선택자 : parent(페런트)
+        $('#inner_wrap').parent().css('border', '1px solid blue'); 
+        // 조상중 특정 태그 검색 : closest(클로우서스트)
+        $('#inner_wrap').closest('body').css('background-color', 'AliceBlue');
+
+        // 하위 요소 선택자 : 공백
+        $('#wrap *').css('border', '1px dotted blue'); // 지정된 자식의 하위요소
+        $('#wrap h1').css('color', 'skyblue');
+
+        // 자식 요소 선택자 : >
+        $('#inner_wrap > h1').text('자식 요소로 선택'); // > 꺽샐 자식으로 범위 좁힘
+        let childs = $('#inner_wrap').children();      // 자식요소만 전부 가져올때 > * 이나 children(칠드런 메서드) 사용
+        console.log(childs);
+    </script>
+    <hr>
+    <div id="content">
+        <h1>인접 관계 선택자</h1>
+        <p>내용1</p>
+        <p class="txt">내용2</p>
+        <p>내용3</p>
+        <p>내용4</p>
+        <span>추가한 내용</span>
+        <script>
+            // 이전(형) 요소 선택자 : prev(프리브), prevAll(프리브올)- 기준 뒤로
+            $('.txt').prev().css('border', '1px solid green');
+            $('.txt').prevAll().text('이전 요소들 전체');
+
+            // 이후(동생) 요소 선택자 next(넥스트), nextAll(넥스트올)
+            $('.txt').next().next().css('color', 'red');
+            $('.txt').nextAll().text('다음 요소들');
+
+            $('.txt + p').text('선택'); // + 내 바로 다음기준
+
+            // 자기를 제외한 모든 형제 요소 선택자 siblings(서블링즈)
+            $('#content h1').siblings().css('background-color', 'yellow');
+        </script>
+    </div>
+</body>
+</html>
