@@ -17,6 +17,16 @@
                 <div class="text-center">
                     <h3>회원 목록</h3>
                 </div>
+                <div>
+                    <!--검색 기능-->
+                    <label for="search">검색조건</label>
+                    <select id="search">
+                        <option value="id">아이디</option>
+                        <option value="name">이름</option>
+                    </select>
+                    <input type="text" name="keyword">
+                    <button type="button" id="searchBtn" class="btn btn-info">검색</button>
+                </div>
                 <table id="list" class="table text-center">
                     <thead>
                         <tr>

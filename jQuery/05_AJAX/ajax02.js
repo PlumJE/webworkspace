@@ -3,8 +3,20 @@ init();
 // 최초 셋팅
 function init() {
     // 각 태그의 이벤트 처리 : 처음부터 존재하는 태그만 가능
+    // 검색 버튼
+    $('button#searchBtn').on('click', searchUserInfo);
+
     // 초기화 버튼
-    $('button#initBtn').on('click', initUserInfo);
+    $('button#initBtn').on('click', function(event) {
+        // 입력태그 초기화
+
+        // tags = $('#info input, #info select');
+        // tags = $('#info').find('input select');
+
+        $('table#info [name]').each(function(idx, tag) {
+            tag.value = '';
+        })
+    });
 
     // 등록 버튼
     $('button#insertBtn').on('click', addUserInfo);
@@ -17,14 +29,6 @@ function init() {
 
     // 데이터 초기화
     getUserList();
-}
-
-function initUserInfo(event) {
-    let tags = $('table#info [name]');
-
-    tags.each(function(idx, tag) {
-        tag.value = '';
-    });
 }
 
 function getUserList() {
@@ -177,14 +181,45 @@ function updateUserInfo(event) {
 }
 
 function deleteUserInfo(event) {
-    let userInfo = formUserInfo();
-
-    $.ajax('http://192.168.0.11:8099/userDelete?id=' + userInfo.id, {
+    // 삭제하고 싶은 회원정보를 서버에서 삭제
+    // 1) 현재 입력한 회원정보 확인 : 회원이 가지고 있는 id
+    let userId = $('#info [name="id"]').val()
+    
+    // 2) 서버에 전송 : AJAX
+    $.ajax('http://192.168.0.11:8099/userDelete?id=' + userId, {
         method: 'GET'
     })
     .done(result => {
-        getUserList();
+        if(result == null) {
+            alert('정상적으로 삭제되지 않았습니다.');
+        }
+        else {
+            getUserList();
+        }
         console.log(result);
+    })
+    .fail(error => console.log(error));
+}
+
+function searchUserInfo(event) {
+    // 사용자가 원하는 검색정보를 기준으로 서버에서 회원정보 조회
+
+    // 사용자가 원하는 검색 정보를 확인 : 검색조건(아이디 or 이름), 검색어
+    // let btnTag = event.currentTarget;
+    // let selectTag = btnTag.previousElementSibiling.previousElementSibiling;
+    // let searchOption = selectTag.value;
+    // let inputTag = btnTag.previousElementSibiling;
+    // let searchKeyword = inputTag.value;
+    // console.log(searchOption, searchKeyword);
+
+    let key = $('#search').val()
+    let value = $('input[name="keyword"]').val()
+    console.log(key, value);
+
+    // 서버에 전송 : AJAX
+    $.ajax(`http://192.168.0.11:8099/userList?${key}=${value}`)
+    .done(result => {
+        addBody(result);
     })
     .fail(error => console.log(error));
 }
